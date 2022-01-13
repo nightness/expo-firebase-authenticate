@@ -41,8 +41,14 @@ const LoginPage = ({ onLogin }: any) => {
       const { id_token } = responseFromGoogle.params;
       const auth = getAuth();
       const credential = GoogleAuthProvider.credential(id_token);
-      console.log("AuthenticationPage: Successful native login using Google");
-      signInWithCredential(auth, credential);
+      signInWithCredential(auth, credential)
+        .then((value) => {          
+          console.log(
+            "AuthenticationPage: Successful native login using Google"
+          );
+          onLogin(value.user)          
+        })
+        .catch((err) => {});
     }
   }, [responseFromGoogle]);
 
@@ -122,6 +128,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "100%",
     height: "100%",
-    padding: 20
+    paddingHorizontal: 20
   },
 });

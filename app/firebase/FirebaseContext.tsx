@@ -1,7 +1,9 @@
+import * as Linking from 'expo-linking';
 import React, { useContext, createContext, useState, useEffect } from 'react';
 import { View, Text, Platform, Image, ActivityIndicator } from 'react-native';
 import { useAuthState, getAuth, getFirestore, FirebaseUser } from './index';
-import * as Linking from 'expo-linking';
+import { parseUri, UriType } from '../libs'
+
 
 import { signOut } from 'firebase/auth';
 
@@ -24,12 +26,23 @@ interface Props {
 
 export const FirebaseProvider = ({ children }: Props) => {
 	const [authToken, setAuthToken] = useState();
+	const [initialURL, setInitialUrl] = useState<UriType | null | undefined>(undefined);
 
 	const [currentUser, isLoading, errorUser] = useAuthState();
 
 	useEffect(() => {
 		console.log('Loading initial state and starting firebase');
-		if (Platform.OS !== 'web') {
+		Linking.getInitialURL()
+		.then((url) => {
+			setInitialUrl(url ? parseUri(url) : null);
+		})
+		.catch((err) => console.error('An error occurred setting  Linking.getInitialURL', err));
+	}, []);
+
+	useEffect(() => {
+		if (!initialURL) return;
+		// Only run for native builds
+		if (Platform.OS !== 'web' && initialURL.protocol !== 'exp') {
 			const results = [];
 
 			results.push(Linking.createURL('https://google.com'));
@@ -46,9 +59,9 @@ export const FirebaseProvider = ({ children }: Props) => {
 				Linking.removeEventListener('url', urlHandler);
 			};
         }
-	}, []);
+	}, [initialURL])
 
-	const logout = (onSuccess: () => null, onError: (err: Error) => void) => {
+	const logout = (onSuccess: () => void, onError?: (error: Error) => void) => {
 		console.log(`FirebaseContext: LOGGING OUT Logging out...`);
 		let localAuth = getAuth();
 
@@ -105,3 +118,5 @@ export const FirebaseProvider = ({ children }: Props) => {
 		</FirebaseContext.Provider>
 	);
 };
+
+
