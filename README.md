@@ -3,3 +3,7 @@ This project has two goals, make Firebase Authentication work for web, Expo Go, 
 Web works, Expo Go works; native builds need work.
 
 https://expo-firebase-authenticate.web.app
+
+Docs
+
+https://docs.expo.dev/guides/linking/

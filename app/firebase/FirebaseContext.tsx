@@ -40,12 +40,13 @@ export const FirebaseProvider = ({ children }: Props) => {
   }, []);
 
   useEffect(() => {
-    if (!initialURL) return;
+    if (initialURL === undefined) return;
+    
     // Only run for native builds
-    if (Platform.OS !== "web" && initialURL.protocol !== "exp") {
+    if (Platform.OS !== "web" && initialURL?.protocol !== "exp") {
       const results = [];
 
-      results.push(Linking.createURL("https://google.com"));
+      results.push(Linking.createURL("oauthredirect"));
 
       console.log("CREATE URL", results);
 
