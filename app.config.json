@@ -1,0 +1,49 @@
+{
+	"name": "expo-firebase-auth",
+	"displayName": "TV Pal",
+	"expo": {
+		"name": "expo-firebase-auth",
+		"slug": "expo-firebase-auth",
+		"version": "1.0.0",
+		"extra": {},
+		"privacy": "unlisted",
+		"orientation": "portrait",
+		"icon": "./assets/icon.png",
+		"scheme": "expfire",
+		"splash": {
+			"image": "./assets/splash.png",
+			"resizeMode": "contain",
+			"backgroundColor": "#ffffff"
+		},
+		"updates": {
+			"fallbackToCacheTimeout": 0
+		},
+		"assetBundlePatterns": ["**/*"],
+		"ios": {
+			"supportsTablet": true,
+			"bundleIdentifier": "com.cyphire.expoFirebaseAuth",
+			"requireFullScreen": true,
+			"config": {
+				"googleSignIn": {
+					"reservedClientId": "333769461160-rpiochl8sm6fhpln0q5sshu2ec84nbl0.apps.googleusercontent.com"
+				}
+			}
+		},
+		"android": {
+			"package": "com.cyphire.expoFirebaseAuth",
+			"versionCode": 1,
+			"adaptiveIcon": {
+				"foregroundImage": "./assets/adaptive-icon.png",
+				"backgroundColor": "#FFFFFF"
+			},
+			"config": {
+				"googleSignIn": {
+					"certificateHash": "679006B75DD525056E05ACD6AA93045F8F5903FC"
+				}
+			}
+		},
+		"web": {
+			"favicon": "./assets/android-chrome-512x512.png"
+		}
+	}
+}
