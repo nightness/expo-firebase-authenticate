@@ -1,9 +1,9 @@
 {
-	"name": "expo-firebase-auth",
-	"displayName": "expo-firebase-auth",
+	"name": "expofire",
+	"displayName": "expofire",
 	"expo": {
-		"name": "expo-firebase-auth",
-		"slug": "expo-firebase-auth",
+		"name": "expofire",
+		"slug": "expofire",
 		"version": "1.0.0",
 		"extra": {},
 		"privacy": "unlisted",

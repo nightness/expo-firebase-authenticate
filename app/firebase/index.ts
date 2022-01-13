@@ -60,10 +60,12 @@ export type {
 	Timestamp,
 };
 
-export const androidClientId = '1011388247701-p30tiq4r87l2fhpibod08a69rq7qh3bc.apps.googleusercontent.com';
-export const expoClientId = '1011388247701-7bcdht64r5llvusbf8dj02tip9c59lnn.apps.googleusercontent.com';
-export const iosClientId = '1011388247701-cvoap98hirm3al42jgih7jecpuufpm2j.apps.googleusercontent.com';
-export const webClientId = '1011388247701-jlujs5vqpm4cs0tm3pjq0799v1tt4upb.apps.googleusercontent.com';
+// Client Key: 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
+export const expoClientId = '471911052488-65irbbfsa4ko6kpa6qspfve42ppm9p51.apps.googleusercontent.com';
+
+export const androidClientId = '471911052488-cn7ncmnbbbn1nel9crclsk53qd0b3iri.apps.googleusercontent.com';
+export const iosClientId = '471911052488-k97l9ccjau4fbufkhssc9b1hocdu5jlt.apps.googleusercontent.com';
+export const webClientId = '471911052488-0f0kip6ap9hquitqkhs9lql2afn1dmlr.apps.googleusercontent.com';
 
 export const clientIds = {
 	androidClientId,
