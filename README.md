@@ -1,4 +1,4 @@
-This project has one goal, make Firebase Authentication work for web, Expo Go, and native builds.
+This project has two goals, make Firebase Authentication work for web, Expo Go, and native builds... Secondly, to write documentation to setup from start to finish.
 
 Web works, Expo Go does work in TVPal but not here  (YET); native builds need work.
 
