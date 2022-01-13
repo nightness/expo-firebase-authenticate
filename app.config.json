@@ -1,6 +1,6 @@
 {
 	"name": "expo-firebase-auth",
-	"displayName": "TV Pal",
+	"displayName": "expo-firebase-auth",
 	"expo": {
 		"name": "expo-firebase-auth",
 		"slug": "expo-firebase-auth",
