@@ -25,12 +25,13 @@ import * as AuthSession from "expo-auth-session";
 import * as Google from "expo-auth-session/providers/google";
 import { signInWithCredential } from "firebase/auth";
 import React, { useContext, useEffect, useState } from "react";
+import { SCHEME } from "./app/constants";
 
 const LoginPage = ({ onLogin }: any) => {
   const auth = getAuth();
   const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] =
     Google.useIdTokenAuthRequest(clientIds, {
-      scheme: "expofire",
+      scheme: SCHEME,
       path: "redirect",
     });
 
