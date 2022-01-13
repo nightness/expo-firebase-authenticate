@@ -114,7 +114,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 5,
     margin: 20,
-    padding: 5,
   },
   touchable: {
     alignContent: "center",
@@ -122,5 +121,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "100%",
     height: "100%",
+    padding: 20
   },
 });
