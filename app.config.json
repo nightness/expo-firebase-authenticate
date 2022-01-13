@@ -21,7 +21,7 @@
 		"assetBundlePatterns": ["**/*"],
 		"ios": {
 			"supportsTablet": true,
-			"bundleIdentifier": "com.cyphire.expoFirebaseAuth",
+			"bundleIdentifier": "com.nightness.expofire",
 			"requireFullScreen": true,
 			"config": {
 				"googleSignIn": {
@@ -30,7 +30,7 @@
 			}
 		},
 		"android": {
-			"package": "com.cyphire.expoFirebaseAuth",
+			"package": "com.nightness.expofire",
 			"versionCode": 1,
 			"adaptiveIcon": {
 				"foregroundImage": "./assets/adaptive-icon.png",
