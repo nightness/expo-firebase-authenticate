@@ -9,7 +9,7 @@
 		"privacy": "unlisted",
 		"orientation": "portrait",
 		"icon": "./assets/icon.png",
-		"scheme": "expfire",
+		"scheme": "expofire",
 		"splash": {
 			"image": "./assets/splash.png",
 			"resizeMode": "contain",
