@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderRadius: 10,
     borderWidth: 5,
-    margin: 20,
+    marginTop: 100,
   },
   touchable: {
     alignContent: "center",
