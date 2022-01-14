@@ -32,8 +32,13 @@ const LoginPage = ({ onLogin }: any) => {
   const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] =
     Google.useIdTokenAuthRequest(clientIds, {
       scheme: SCHEME,
-      path: "redirect",
+      // path: "redirect",
     });
+
+
+  useEffect(() => {
+    console.log("GOOGLE: ", requestToGoogle)
+  }, [requestToGoogle])
 
   // Handles the response from google authentication (iOS / Android / Expo Go)
   useEffect(() => {
@@ -42,11 +47,11 @@ const LoginPage = ({ onLogin }: any) => {
       const auth = getAuth();
       const credential = GoogleAuthProvider.credential(id_token);
       signInWithCredential(auth, credential)
-        .then((value) => {          
+        .then((value) => {
           console.log(
             "AuthenticationPage: Successful native login using Google"
           );
-          onLogin(value.user)          
+          onLogin(value.user);
         })
         .catch((err) => {});
     }
@@ -128,6 +133,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "100%",
     height: "100%",
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
   },
 });

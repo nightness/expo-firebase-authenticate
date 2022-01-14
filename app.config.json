@@ -40,7 +40,23 @@
 				"googleSignIn": {
 					"certificateHash": "679006B75DD525056E05ACD6AA93045F8F5903FC"
 				}
-			}
+			},
+			"intentFilters": [
+				{
+				  "action": "VIEW",
+				  "data": [
+					{
+					  "scheme": "https",
+					  "host": "expo-firebase-authenticate.web.app",
+					  "pathPrefix": "/redirect"
+					}
+				  ],
+				  "category": [
+					"BROWSABLE",
+					"DEFAULT"
+				  ]
+				}
+			  ]
 		},
 		"web": {
 			"favicon": "./assets/android-chrome-512x512.png"

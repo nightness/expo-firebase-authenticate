@@ -26,29 +26,31 @@ interface Props {
 export const FirebaseProvider = ({ children }: Props) => {
   const [currentUser, isLoading, errorUser] = useAuthState();
   const [authToken, setAuthToken] = useState();
-  const [initialURL, setInitialUrl] = useState<UriType | null | undefined>();
+  const [initialURL, setInitialURL] = useState<UriType | null | undefined>();
 
   useEffect(() => {
     console.log("Loading initial state and starting firebase");
     Linking.getInitialURL()
       .then((url) => {
-        setInitialUrl(url ? parseUri(url) : null);
+        const initialURL = url ? parseUri(url) : null;
+        setInitialURL(initialURL);
+
+        // Only run for native builds, but not on Expo Go
+        if (Platform.OS !== "web" && initialURL?.protocol !== "exp") {
+          const results = [];
+
+          results.push(Linking.createURL("oauthredirect"));
+          results.push(Linking.createURL("redirect"));
+          results.push(Linking.createURL(""));
+          results.push(Linking.createURL("*"));
+
+          console.log("CREATE URL", results);
+
+        }
       })
       .catch((err) =>
         console.error("An error occurred setting  Linking.getInitialURL", err)
       );
-  }, []);
-
-  useEffect(() => {
-    if (initialURL === undefined) return;
-    
-    // Only run for native builds
-    if (Platform.OS !== "web" && initialURL?.protocol !== "exp") {
-      const results = [];
-
-      results.push(Linking.createURL("oauthredirect"));
-
-      console.log("CREATE URL", results);
 
       const urlHandler: Linking.URLListener = (event) => {
         console.log(`URL LISTENER:`, event);
@@ -59,8 +61,32 @@ export const FirebaseProvider = ({ children }: Props) => {
       return () => {
         Linking.removeEventListener("url", urlHandler);
       };
-    }
-  }, [initialURL]);
+
+  }, []);
+
+  // useEffect(() => {
+  //   if (initialURL === undefined) return;
+
+  //   // Only run for native builds
+  //   if (Platform.OS !== "web" && initialURL?.protocol !== "exp") {
+  //     const results = [];
+
+  //     results.push(Linking.createURL("oauthredirect"));
+  //     results.push(Linking.createURL("redirect"));
+
+  //     console.log("CREATE URL", results);
+
+  //     const urlHandler: Linking.URLListener = (event) => {
+  //       console.log(`URL LISTENER:`, event);
+  //       alert(event.url);
+  //     };
+
+  //     Linking.addEventListener("url", urlHandler);
+  //     return () => {
+  //       Linking.removeEventListener("url", urlHandler);
+  //     };
+  //   }
+  // }, [initialURL]);
 
   const logout = (onSuccess: () => void, onError?: (error: Error) => void) => {
     console.log(`FirebaseContext: LOGGING OUT Logging out...`);
