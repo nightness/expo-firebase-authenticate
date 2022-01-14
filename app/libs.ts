@@ -3,20 +3,20 @@
 // MIT License
 
 export type UriType = {
-	'source': string,
-    'protocol': string,
-    'authority': string,
-    'userInfo': string,
-    'user': string,
-    'password': string,
-    'host': string,
-    'port': string,
-    'relative': string,
-    'path': string,
-    'directory': string,
-    'file': string,
-    'query': string,
-    'anchor': string,
+	source: string,
+    protocol: string,
+    authority: string,
+    userInfo: string,
+    user: string,
+    password: string,
+    host: string,
+    port: string,
+    relative: string,
+    path: string,
+    directory: string,
+    file: string,
+    query: string,
+    anchor: string,
 }
 
 parseUri.options = {
