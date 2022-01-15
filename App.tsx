@@ -53,7 +53,9 @@ const LoginPage = ({ onLogin }: any) => {
           );
           onLogin(value.user);
         })
-        .catch((err) => {});
+        .catch((err) => {
+          alert(JSON.stringify(err))
+        });
     }
   }, [responseFromGoogle]);
 
