@@ -1,153 +1,149 @@
-import * as Linking from "expo-linking";
-import React, { useContext, createContext, useState, useEffect } from "react";
-import { View, Text, Platform, Image, ActivityIndicator } from "react-native";
-import { useAuthState, getAuth, getFirestore, FirebaseUser } from "./index";
-import { parseUri, UriType } from "../libs";
+import * as Linking from 'expo-linking';
+import React, { useContext, createContext, useState, useEffect } from 'react';
+import { View, Text, Platform, Image, ActivityIndicator } from 'react-native';
+import { useAuthState, getAuth, getFirestore, FirebaseUser } from './index';
+import { parseUri, UriType } from '../libs';
 
-import { signOut } from "firebase/auth";
+import { signOut } from 'firebase/auth';
 
 type ContextType = {
-  currentUser?: FirebaseUser | null;
-  isLoading: boolean;
-  error?: any;
-  authToken?: string;
-  logout: (onSuccess: () => void, onError?: (error: Error) => void) => void;
+	currentUser?: FirebaseUser | null;
+	isLoading: boolean;
+	error?: any;
+	authToken?: string;
+	logout: (onSuccess: () => void, onError?: (error: Error) => void) => void;
 };
 
 export const FirebaseContext = createContext<ContextType>({
-  isLoading: true,
-  logout: (onSuccess: () => void, onError?: (error: Error) => void) => null,
+	isLoading: true,
+	logout: (onSuccess: () => void, onError?: (error: Error) => void) => null,
 });
 
 interface Props {
-  children: JSX.Element | JSX.Element[];
+	children: JSX.Element | JSX.Element[];
 }
 
 export const FirebaseProvider = ({ children }: Props) => {
-  const [currentUser, isLoading, errorUser] = useAuthState();
-  const [authToken, setAuthToken] = useState();
-  const [initialURL, setInitialURL] = useState<UriType | null | undefined>();
+	const [currentUser, isLoading, errorUser] = useAuthState();
+	const [authToken, setAuthToken] = useState();
+	const [initialURL, setInitialURL] = useState<UriType | null | undefined>();
 
-  useEffect(() => {
-    console.log("Loading initial state and starting firebase");
-    Linking.getInitialURL()
-      .then((url) => {
-        const initialURL = url ? parseUri(url) : null;
-        setInitialURL(initialURL);
+	useEffect(() => {
+		// console.log("Loading initial state and starting firebase");
 
-        // Only run for native builds, but not on Expo Go
-        if (Platform.OS !== "web" && initialURL?.protocol !== "exp") {
-          const results = [];
+		console.log(`FirebaseContext.tsx: useEffect ([]) Pre call to Linking.getInitialURL`);
 
-          results.push(Linking.createURL("oauthredirect"));
-          results.push(Linking.createURL("redirect"));
-          results.push(Linking.createURL(""));
-          results.push(Linking.createURL("*"));
+		Linking.getInitialURL()
+			.then((url) => {
+				console.log(
+					`FirebaseContext.tsx: useEffect ([]) INSIDE call to Linking.getInitialURL url: ${JSON.stringify(url)}`
+				);
 
-          console.log("CREATE URL", results);
+				const initialURL = url ? parseUri(url) : null;
+				setInitialURL(initialURL);
 
-        }
-      })
-      .catch((err) =>
-        console.error("An error occurred setting  Linking.getInitialURL", err)
-      );
+				console.log(
+					`FirebaseContext.tsx: useEffect ([]) INSIDE call to Linking.getInitialURL initialURL ${JSON.stringify(
+						initialURL
+					)}`
+				);
 
-      const urlHandler: Linking.URLListener = (event) => {
-        console.log(`URL LISTENER:`, event);
-        alert(event.url);
-      };
+				// Only run for native builds, but not on Expo Go
+				if (Platform.OS !== 'web' && initialURL?.protocol !== 'exp') {
+					const results = [];
 
-      Linking.addEventListener("url", urlHandler);
-      return () => {
-        Linking.removeEventListener("url", urlHandler);
-      };
+					results.push(Linking.createURL('oauthredirect'));
+					results.push(Linking.createURL('redirect'));
+					results.push(Linking.createURL(''));
+					results.push(Linking.createURL('*'));
 
-  }, []);
+					console.log(
+						`FirebaseContext.tsx: useEffect ([]) INSIDE call to Linking.getInitialURL got results for NOT WEB NOT EXP  results:  ${JSON.stringify(
+							results
+						)}`
+					);
 
-  // useEffect(() => {
-  //   if (initialURL === undefined) return;
+					// console.log('CREATE URL', results);
+				}
+			})
+			.catch((err) =>
+				console.log(
+					`FirebaseContext.tsx: useEffect ([]) ERROR ERROR  call to Linking.getInitialURL err:  ${JSON.stringify(err)}`
+				)
+			);
 
-  //   // Only run for native builds
-  //   if (Platform.OS !== "web" && initialURL?.protocol !== "exp") {
-  //     const results = [];
+		// console.error('An error occurred setting	Linking.getInitialURL', err)
+		// );
 
-  //     results.push(Linking.createURL("oauthredirect"));
-  //     results.push(Linking.createURL("redirect"));
+		const urlHandler: Linking.URLListener = (event) => {
+			console.log(`FirebaseContext.tsx: useEffect ([]) urlHandler urlHANDLER :  ${JSON.stringify(event)}`);
+			// console.log(`URL LISTENER:`, event);
+			alert(event.url);
+		};
 
-  //     console.log("CREATE URL", results);
+		Linking.addEventListener('url', urlHandler);
+		console.log(`FirebaseContext.tsx: useEffect ([]) Linking.addEventListener was called before this with urlHandler`);
+		return () => {
+			console.log(`FirebaseContext.tsx: useEffect ([]) Linking.addEventListener REMOVING LISTENER REMOVING LISTENER`);
+			Linking.removeEventListener('url', urlHandler);
+		};
+	}, []);
 
-  //     const urlHandler: Linking.URLListener = (event) => {
-  //       console.log(`URL LISTENER:`, event);
-  //       alert(event.url);
-  //     };
+	const logout = (onSuccess: () => void, onError?: (error: Error) => void) => {
+		console.log(`FirebaseContext: LOGGING OUT Logging out...`);
+		let localAuth = getAuth();
 
-  //     Linking.addEventListener("url", urlHandler);
-  //     return () => {
-  //       Linking.removeEventListener("url", urlHandler);
-  //     };
-  //   }
-  // }, [initialURL]);
+		signOut(localAuth)
+			.then(() => {
+				console.log(`FirebaseContext: WE ARE IN THE SIGNOUT >>>>>>>`);
+				try {
+					onSuccess?.();
+				} catch (err) {
+					console.log(`FirebaseContext: ERROR in setGuest() >>>>>>> ${JSON.stringify(err)}`);
+					onError && onError(err as any);
+				}
+				// onSuccess();
+			})
+			.catch((err) => {
+				console.error([`FirebaseContext: ERROR LOGGING OUT>>>>>`, err]);
+				onError && onError(err);
+			});
+	};
 
-  const logout = (onSuccess: () => void, onError?: (error: Error) => void) => {
-    console.log(`FirebaseContext: LOGGING OUT Logging out...`);
-    let localAuth = getAuth();
+	const updateUserToken = async () => {
+		if (!currentUser) {
+			setAuthToken(undefined);
+			return;
+		}
 
-    signOut(localAuth)
-      .then(() => {
-        console.log(`FirebaseContext: WE ARE IN THE SIGNOUT >>>>>>>`);
-        try {
-          onSuccess?.();
-        } catch (err) {
-          console.log(
-            `FirebaseContext: ERROR in setGuest() >>>>>>> ${JSON.stringify(
-              err
-            )}`
-          );
-          onError && onError(err as any);
-        }
-        // onSuccess();
-      })
-      .catch((err) => {
-        console.error([`FirebaseContext: ERROR LOGGING OUT>>>>>`, err]);
-        onError && onError(err);
-      });
-  };
+		const token: any = await currentUser.getIdToken(true);
+		setAuthToken(token);
+		console.log(`FirebaseContext: New Token set... (WE DONT USE?)`, token.substr(0, 10));
+	};
 
-  const updateUserToken = async () => {
-    if (!currentUser) {
-      setAuthToken(undefined);
-      return;
-    }
+	if (errorUser)
+		return (
+			<View>
+				<Text>{JSON.stringify(errorUser)}</Text>
+			</View>
+		);
+	else if (!errorUser && isLoading) return <ActivityIndicator />;
 
-    const token: any = await currentUser.getIdToken(true);
-    setAuthToken(token);
-    console.log(
-      `FirebaseContext: New Token set... (WE DONT USE?)`,
-      token.substr(0, 10)
-    );
-  };
+	// tvLog(['Load: Rendering: FirebaseContext', currentUser]);
 
-  if (errorUser)
-    return (
-      <View>
-        <Text>{JSON.stringify(errorUser)}</Text>
-      </View>
-    );
-  else if (!errorUser && isLoading) return <ActivityIndicator />;
+	console.log(`FirebaseContext.tsx: MAIN RENDER.... currentUser: ${JSON.stringify(currentUser)}`);
 
-  // tvLog(['Load: Rendering: FirebaseContext', currentUser]);
-
-  return (
-    <FirebaseContext.Provider
-      value={{
-        currentUser,
-        isLoading,
-        error: errorUser,
-        authToken,
-        logout,
-      }}
-    >
-      {children}
-    </FirebaseContext.Provider>
-  );
+	return (
+		<FirebaseContext.Provider
+			value={{
+				currentUser,
+				isLoading,
+				error: errorUser,
+				authToken,
+				logout,
+			}}
+		>
+			{children}
+		</FirebaseContext.Provider>
+	);
 };
