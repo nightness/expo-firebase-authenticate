@@ -29,9 +29,7 @@ export const FirebaseProvider = ({ children }: Props) => {
 	const [initialURL, setInitialURL] = useState<UriType | null | undefined>();
 
 	useEffect(() => {
-		// console.log("Loading initial state and starting firebase");
-
-		console.log(`FirebaseContext.tsx: useEffect ([]) Pre call to Linking.getInitialURL`);
+		console.log(`FirebaseContext.tsx: useEffect ([])`);
 
 		Linking.getInitialURL()
 			.then((url) => {
@@ -54,8 +52,11 @@ export const FirebaseProvider = ({ children }: Props) => {
 
 					results.push(Linking.createURL('oauthredirect'));
 					results.push(Linking.createURL('redirect'));
-					results.push(Linking.createURL(''));
-					results.push(Linking.createURL('*'));
+					results.push(Linking.createURL('/oauthredirect'));
+					results.push(Linking.createURL('/redirect'));
+					results.push(Linking.createURL('expofire://redirect'));
+					results.push(Linking.createURL('net.openid.appauth.RedirectUriReceiverActivity'));
+					results.push(Linking.createURL('net.openid.appauth.AuthorizationManagementActivity'));
 
 					console.log(
 						`FirebaseContext.tsx: useEffect ([]) INSIDE call to Linking.getInitialURL got results for NOT WEB NOT EXP  results:  ${JSON.stringify(
@@ -76,8 +77,7 @@ export const FirebaseProvider = ({ children }: Props) => {
 		// );
 
 		const urlHandler: Linking.URLListener = (event) => {
-			console.log(`FirebaseContext.tsx: useEffect ([]) urlHandler urlHANDLER :  ${JSON.stringify(event)}`);
-			// console.log(`URL LISTENER:`, event);
+			console.log(`FirebaseContext.tsx: urlHandler ${JSON.stringify(event)}`);
 			alert(event.url);
 		};
 

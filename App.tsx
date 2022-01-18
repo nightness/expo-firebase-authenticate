@@ -21,13 +21,14 @@ import { signInWithCredential } from 'firebase/auth';
 import React, { useContext, useEffect, useState } from 'react';
 import { SCHEME } from './app/constants';
 
-const LoginPage = ({ onLogin, loginText }: any) => {
+const LoginPage = ({ onLogin }: any) => {
 	const auth = getAuth();
 	const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = Google.useIdTokenAuthRequest(clientIds, {
 		scheme: SCHEME,
-		// path: "redirect",
+		path: "redirect",
 	});
 
+	// Logging, this is the request we send to google
 	useEffect(() => {
 		console.log(`App.tsx: useEffect (requestToGoogle) requestToGoogle: ${JSON.stringify(requestToGoogle)}`);
 		// console.log('GOOGLE: ', requestToGoogle);
@@ -61,7 +62,7 @@ const LoginPage = ({ onLogin, loginText }: any) => {
 				});
 		} else {
 			console.log(
-				`App.tsx: useEffect (responseFromGoogle)  responseFromGoogle?.type  OTHER THAN 'success' (not success) ${JSON.stringify(
+				`App.tsx: LoginPage useEffect (responseFromGoogle) responseFromGoogle?.type  ${JSON.stringify(
 					responseFromGoogle,
 					null,
 					2
@@ -70,35 +71,33 @@ const LoginPage = ({ onLogin, loginText }: any) => {
 		}
 	}, [responseFromGoogle]);
 
+	// Invoke the onLogin callback after firebase has a user
 	useEffect(() => {
 		if (auth.currentUser) {
-			console.log(`App.tsx: useEffect (auth) :going to onLogin with ${auth.currentUser}`);
-
+			console.log(`App.tsx: useEffect (auth) Logged-In ${auth.currentUser}`);
 			onLogin(auth.currentUser);
 		}
 	}, [auth]);
 
+	// Platform independent sign-in with google
 	const signInWithGoogle = async () => {
 		if (Platform.OS === 'web') {
 			console.log(`App.tsx: signInWithGoogle(): Platform Web`);
-			// console.log('LoginPage: ABOUT TO GO TO GOOGLE AUTH!');
 			const provider = new GoogleAuthProvider();
 			signInWithRedirect(getAuth(), provider).catch((error: FirebaseError) => {
 				console.error(error);
 			});
 		} else if (Platform.OS === 'android' || Platform.OS === 'ios') {
 			console.log(`App.tsx: signInWithGoogle(): Platform NOT Web`);
-
 			promptGoogleAuthAsync();
 		}
 	};
 
-	console.log(`App.tsx: LoginPage(): Rendering MAIN for LoginPage Inside of App.tsx`);
+	console.log(`App.tsx: LoginPage Rendering`);
 
 	return (
 		<TouchableOpacity style={styles.touchable} onPress={signInWithGoogle}>
 			<Text style={{ fontSize: 20, fontWeight: '700' }}>Login with Google</Text>
-			<Text>{loginText}</Text>
 		</TouchableOpacity>
 	);
 };
@@ -109,7 +108,7 @@ const LogoutPage = ({ onLogout }: any) => {
 
 	useEffect(() => {
 		if (!auth.currentUser) {
-			console.log(`App.tsx: useEffect (auth)  LogoutPage auth.currentUser: ${JSON.stringify(auth.currentUser)}`);
+			console.log(`App.tsx: Logged out... auth.currentUser: ${JSON.stringify(auth.currentUser)}`);
 			onLogout();
 		}
 	}, [auth]);
@@ -118,7 +117,7 @@ const LogoutPage = ({ onLogout }: any) => {
 		logout(onLogout, () => console.error);
 	};
 
-	console.log(`App.tsx: LogoutPage(): Rendering MAIN for LogoutPage Inside of App.tsx`);
+	console.log(`App.tsx: LogoutPage(): Rendering LogoutPage`);
 
 	return (
 		<TouchableOpacity style={styles.touchable} onPress={onPressHandler}>
@@ -130,15 +129,15 @@ const LogoutPage = ({ onLogout }: any) => {
 export default function App() {
 	const [loggedIn, setLoggedIn] = useState(false);
 
-	console.log(`App.tsx: App(): Rendering MAIN App.tsx MAIN MAIN MAIN`);
+	console.log(`App.tsx: App(): Rendering App.tsx`);
 
 	return (
 		<FirebaseProvider>
 			<View style={styles.container}>
 				{!loggedIn ? (
-					<LoginPage onLogin={() => setLoggedIn(true)} loginText={'Logged in!!!'} />
+					<LoginPage onLogin={() => setLoggedIn(true)} />
 				) : (
-					<LogoutPage onLogout={() => setLoggedIn(false)} loginText={'Not logged in!!!'} />
+					<LogoutPage onLogout={() => setLoggedIn(false)} />
 				)}
 			</View>
 		</FirebaseProvider>
