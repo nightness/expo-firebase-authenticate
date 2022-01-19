@@ -1,4 +1,8 @@
-export const SCHEME = "expofire";
+import Constants from 'expo-constants';
+
+// Get the SCHEME from app.config.json
+export const SCHEME = Constants.manifest?.scheme;
+
 
 // Client Key: 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
 export const expoClientId = '471911052488-65irbbfsa4ko6kpa6qspfve42ppm9p51.apps.googleusercontent.com';
