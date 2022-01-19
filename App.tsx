@@ -11,7 +11,6 @@ import {
 	sendPasswordResetEmail,
 	signInWithCustomToken,
 	signInWithEmailAndPassword,
-	clientIds,
 	FirebaseProvider,
 } from './app/firebase';
 
@@ -19,20 +18,20 @@ import * as AuthSession from 'expo-auth-session';
 import * as Google from 'expo-auth-session/providers/google';
 import { signInWithCredential } from 'firebase/auth';
 import React, { useContext, useEffect, useState } from 'react';
-import { SCHEME } from './app/constants';
+
+import { clientIds, SCHEME } from './app/config';
 
 const LoginPage = ({ onLogin }: any) => {
 	const auth = getAuth();
-	const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = Google.useIdTokenAuthRequest(clientIds);
+	// const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = Google.useIdTokenAuthRequest(clientIds);
 	// 	scheme: SCHEME,
 	// 	path: 'redirect',
 	// });
-	// const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = Google.useAuthRequest(clientIds);
+	const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = Google.useAuthRequest(clientIds);
 
 	// Logging, this is the request we send to google
 	useEffect(() => {
 		console.log(`App.tsx: useEffect (requestToGoogle) requestToGoogle: ${JSON.stringify(requestToGoogle)}`);
-		// console.log('GOOGLE: ', requestToGoogle);
 	}, [requestToGoogle]);
 
 	// Handles the response from google authentication (iOS / Android / Expo Go)

@@ -31,7 +31,7 @@ import * as FirebaseAuth from 'react-firebase-hooks/auth';
 import * as FirebaseFirestore from 'react-firebase-hooks/firestore';
 // import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
-import { firebaseConfig } from './FirebaseConfig';
+import { firebaseConfig } from '../config';
 import { FirebaseContext, FirebaseProvider } from './FirebaseContext';
 import { Platform } from 'react-native';
 
@@ -60,21 +60,7 @@ export type {
 	Timestamp,
 };
 
-// Client Key: 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
-export const expoClientId = '471911052488-65irbbfsa4ko6kpa6qspfve42ppm9p51.apps.googleusercontent.com';
 
-// export const androidClientId = '471911052488-s8q0g1p45emik3v7odoe8oa0fj2a6h2s.apps.googleusercontent.com';
-export const androidClientId = '471911052488-f3lhcb307h93vqlv4o8482obgorcub7c.apps.googleusercontent.com';
-//export const androidClientId = '471911052488-cn7ncmnbbbn1nel9crclsk53qd0b3iri.apps.googleusercontent.com';
-export const iosClientId = '471911052488-k97l9ccjau4fbufkhssc9b1hocdu5jlt.apps.googleusercontent.com';
-export const webClientId = '471911052488-0f0kip6ap9hquitqkhs9lql2afn1dmlr.apps.googleusercontent.com';
-
-export const clientIds = {
-	androidClientId,
-	expoClientId,
-	iosClientId,
-	webClientId,
-}
 
 // interface LoginSuccess {
 // 	type: 'success';
