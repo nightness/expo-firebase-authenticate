@@ -47,25 +47,25 @@ export const FirebaseProvider = ({ children }: Props) => {
 				);
 
 				// Only run for native builds, but not on Expo Go
-				if (Platform.OS !== 'web' && initialURL?.protocol !== 'exp') {
-					const results = [];
+				// if (Platform.OS !== 'web' && initialURL?.protocol !== 'exp') {
+				// 	const results = [];
 
-					results.push(Linking.createURL('oauthredirect'));
-					results.push(Linking.createURL('redirect'));
-					results.push(Linking.createURL('/oauthredirect'));
-					results.push(Linking.createURL('/redirect'));
-					results.push(Linking.createURL('expofire://redirect'));
-					results.push(Linking.createURL('net.openid.appauth.RedirectUriReceiverActivity'));
-					results.push(Linking.createURL('net.openid.appauth.AuthorizationManagementActivity'));
+				// 	// results.push(Linking.createURL('oauthredirect'));
+				// 	results.push(Linking.createURL('redirect'));
+				// 	// results.push(Linking.createURL('/oauthredirect'));
+				// 	// results.push(Linking.createURL('/redirect'));
+				// 	// results.push(Linking.createURL('expofire://redirect'));
+				// 	// results.push(Linking.createURL('net.openid.appauth.RedirectUriReceiverActivity'));
+				// 	// results.push(Linking.createURL('net.openid.appauth.AuthorizationManagementActivity'));
 
-					console.log(
-						`FirebaseContext.tsx: useEffect ([]) INSIDE call to Linking.getInitialURL got results for NOT WEB NOT EXP  results:  ${JSON.stringify(
-							results
-						)}`
-					);
+				// 	console.log(
+				// 		`FirebaseContext.tsx: useEffect ([]) INSIDE call to Linking.getInitialURL got results for NOT WEB NOT EXP  results:  ${JSON.stringify(
+				// 			results
+				// 		)}`
+				// 	);
 
-					// console.log('CREATE URL', results);
-				}
+				// 	// console.log('CREATE URL', results);
+				// }
 			})
 			.catch((err) =>
 				console.log(
@@ -131,7 +131,7 @@ export const FirebaseProvider = ({ children }: Props) => {
 
 	// tvLog(['Load: Rendering: FirebaseContext', currentUser]);
 
-	console.log(`FirebaseContext.tsx: MAIN RENDER.... currentUser: ${JSON.stringify(currentUser)}`);
+	// console.log(`FirebaseContext.tsx: MAIN RENDER.... currentUser: ${JSON.stringify(currentUser)}`);
 
 	return (
 		<FirebaseContext.Provider

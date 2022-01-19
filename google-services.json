@@ -7,14 +7,14 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:471911052488:android:f55b00b1f0b413366461fd",
+        "mobilesdk_app_id": "1:471911052488:android:d04dd7af272efbf66461fd",
         "android_client_info": {
           "package_name": "com.nightness.expofire"
         }
       },
       "oauth_client": [
         {
-          "client_id": "471911052488-cn7ncmnbbbn1nel9crclsk53qd0b3iri.apps.googleusercontent.com",
+          "client_id": "471911052488-f3lhcb307h93vqlv4o8482obgorcub7c.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.nightness.expofire",

@@ -23,10 +23,11 @@ import { SCHEME } from './app/constants';
 
 const LoginPage = ({ onLogin }: any) => {
 	const auth = getAuth();
-	const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = Google.useIdTokenAuthRequest(clientIds, {
-		scheme: SCHEME,
-		path: "redirect",
-	});
+	const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = Google.useIdTokenAuthRequest(clientIds);
+	// 	scheme: SCHEME,
+	// 	path: 'redirect',
+	// });
+	// const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = Google.useAuthRequest(clientIds);
 
 	// Logging, this is the request we send to google
 	useEffect(() => {
@@ -130,6 +131,15 @@ export default function App() {
 	const [loggedIn, setLoggedIn] = useState(false);
 
 	console.log(`App.tsx: App(): Rendering App.tsx`);
+
+	// useEffect(() => {
+	// 	console.log(
+	// 		'MAKE URI:::::::::',
+	// 		AuthSession.makeRedirectUri({
+	// 			path: 'redirect',
+	// 		})
+	// 	);
+	// }, []);
 
 	return (
 		<FirebaseProvider>
