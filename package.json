@@ -8,7 +8,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "log": "adb logcat *:S ReactNative:V ReactNativeJS:V ActivityTaskManager"
+    "log": "adb logcat *:S ReactNative:V ReactNativeJS:V ActivityTaskManager",
+    "deploy": "expo build:web && firebase deploy"
   },
   "dependencies": {
     "@react-native-firebase/app": "^14.2.2",
