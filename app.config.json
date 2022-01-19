@@ -44,20 +44,26 @@
 			},
 			"intentFilters": [
 				{
-				  "action": "VIEW",
-				  "data": [
-					{
-					  "scheme": "https",
-					  "host": "expo-firebase-authenticate.web.app",
-					  "pathPrefix": "/redirect"
-					}
-				  ],
-				  "category": [
-					"BROWSABLE",
-					"DEFAULT"
-				  ]
+					"action": "VIEW",
+					"data": [
+						{
+							"scheme": "expofire"
+						}
+					],
+					"category": ["BROWSABLE", "DEFAULT"]
+				},
+				{
+					"action": "VIEW",
+					"data": [
+						{
+							"scheme": "https",
+							"host": "expo-firebase-authenticate.web.app",
+							"pathPrefix": "/redirect"
+						}
+					],
+					"category": ["BROWSABLE", "DEFAULT"]
 				}
-			  ]
+			]
 		},
 		"web": {
 			"favicon": "./assets/android-chrome-512x512.png"

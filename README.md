@@ -7,6 +7,8 @@ Useful Documentation
     https://firebase.google.com/docs/android/setup
     https://docs.expo.dev/guides/linking/
     https://firebase.google.com/docs/auth/android/start
+
+    https://javascript.plainenglish.io/easy-deep-linking-with-react-native-and-expo-84e3c7b9d63e
     
 Setup Web
 ===

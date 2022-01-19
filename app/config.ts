@@ -1,9 +1,17 @@
 import Constants from 'expo-constants';
 
 // Get the SCHEME from app.config.json
-export const SCHEME = Constants.manifest?.scheme;
+export const SCHEME = Constants.manifest?.scheme ?? 'expofire';
 
-
+export const firebaseConfig = {
+    apiKey: "AIzaSyDsYxIVahiRykoLYJfGk1h98JQomUGpW8g",
+    authDomain: "expo-firebase-authenticate.firebaseapp.com",
+    projectId: "expo-firebase-authenticate",
+    storageBucket: "expo-firebase-authenticate.appspot.com",
+    messagingSenderId: "471911052488",
+    appId: "1:471911052488:web:025186ebd0e78fff6461fd",
+  };
+  
 // Client Key: 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
 export const expoClientId = '471911052488-65irbbfsa4ko6kpa6qspfve42ppm9p51.apps.googleusercontent.com';
 // export const androidClientId = '471911052488-s8q0g1p45emik3v7odoe8oa0fj2a6h2s.apps.googleusercontent.com';
@@ -19,12 +27,4 @@ export const clientIds = {
 	webClientId,
 }
 
-export const firebaseConfig = {
-    apiKey: "AIzaSyDsYxIVahiRykoLYJfGk1h98JQomUGpW8g",
-    authDomain: "expo-firebase-authenticate.firebaseapp.com",
-    projectId: "expo-firebase-authenticate",
-    storageBucket: "expo-firebase-authenticate.appspot.com",
-    messagingSenderId: "471911052488",
-    appId: "1:471911052488:web:025186ebd0e78fff6461fd",
-  };
   

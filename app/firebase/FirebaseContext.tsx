@@ -1,4 +1,5 @@
 import * as Linking from 'expo-linking';
+import Constants from 'expo-constants';
 import React, { useContext, createContext, useState, useEffect } from 'react';
 import { View, Text, Platform, Image, ActivityIndicator } from 'react-native';
 import { useAuthState, getAuth, getFirestore, FirebaseUser } from './index';
@@ -48,24 +49,27 @@ export const FirebaseProvider = ({ children }: Props) => {
 
 				// Only run for native builds, but not on Expo Go
 				// if (Platform.OS !== 'web' && initialURL?.protocol !== 'exp') {
-				// 	const results = [];
+				if (Platform.OS !== 'web' && Constants.appOwnership !== 'expo') {
+					const results = [];
 
-				// 	// results.push(Linking.createURL('oauthredirect'));
-				// 	results.push(Linking.createURL('redirect'));
-				// 	// results.push(Linking.createURL('/oauthredirect'));
-				// 	// results.push(Linking.createURL('/redirect'));
-				// 	// results.push(Linking.createURL('expofire://redirect'));
-				// 	// results.push(Linking.createURL('net.openid.appauth.RedirectUriReceiverActivity'));
-				// 	// results.push(Linking.createURL('net.openid.appauth.AuthorizationManagementActivity'));
+					// results.push(Linking.createURL('oauthredirect'));
+					results.push(Linking.createURL('redirect'));
+					results.push(Linking.createURL('expo.firebase-authenticate/redirect', {
+						scheme: 'https'
+					}));
+					// results.push(Linking.createURL('/redirect'));
+					// results.push(Linking.createURL('expofire://redirect'));
+					// results.push(Linking.createURL('net.openid.appauth.RedirectUriReceiverActivity'));
+					// results.push(Linking.createURL('net.openid.appauth.AuthorizationManagementActivity'));
 
-				// 	console.log(
-				// 		`FirebaseContext.tsx: useEffect ([]) INSIDE call to Linking.getInitialURL got results for NOT WEB NOT EXP  results:  ${JSON.stringify(
-				// 			results
-				// 		)}`
-				// 	);
+					console.log(
+						`FirebaseContext.tsx: useEffect ([]) INSIDE call to Linking.getInitialURL got results for NOT WEB NOT EXP  results:  ${JSON.stringify(
+							results
+						)}`
+					);
 
-				// 	// console.log('CREATE URL', results);
-				// }
+					// console.log('CREATE URL', results);
+				}
 			})
 			.catch((err) =>
 				console.log(

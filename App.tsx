@@ -23,11 +23,19 @@ import { clientIds, SCHEME } from './app/config';
 
 const LoginPage = ({ onLogin }: any) => {
 	const auth = getAuth();
-	// const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = Google.useIdTokenAuthRequest(clientIds);
-	// 	scheme: SCHEME,
-	// 	path: 'redirect',
+	const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = Google.useIdTokenAuthRequest(clientIds, {
+		scheme: SCHEME,
+		path: 'redirect',	
+	});
+
+	// const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = Google.useIdTokenAuthRequest(clientIds, {
+	// 	scheme: "https",
+	// 	path: 'expo.firebase-authenticate/redirect',		
 	// });
-	const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = Google.useAuthRequest(clientIds);
+
+
+	// Doesn't work with Expo GO
+	// const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = Google.useAuthRequest(clientIds);
 
 	// Logging, this is the request we send to google
 	useEffect(() => {
