@@ -6,6 +6,7 @@ Useful Documentation
     https://docs.expo.dev/guides/authentication/
     https://firebase.google.com/docs/android/setup
     https://docs.expo.dev/guides/linking/
+    https://firebase.google.com/docs/auth/android/start
     
 Setup Web
 ===
