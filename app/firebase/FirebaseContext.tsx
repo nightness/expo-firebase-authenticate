@@ -82,7 +82,7 @@ export const FirebaseProvider = ({ children }: Props) => {
 
 		const urlHandler: Linking.URLListener = (event) => {
 			console.log(`FirebaseContext.tsx: urlHandler ${JSON.stringify(event)}`);
-			alert(event.url);
+			// alert(event.url);
 		};
 
 		Linking.addEventListener('url', urlHandler);

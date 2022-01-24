@@ -11,6 +11,11 @@ export const firebaseConfig = {
     messagingSenderId: "471911052488",
     appId: "1:471911052488:web:025186ebd0e78fff6461fd",
   };
+
+export const authOptions = {
+  scheme: SCHEME,
+  path: 'redirect',	
+}
   
 // Client Key: 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
 export const expoClientId = '471911052488-65irbbfsa4ko6kpa6qspfve42ppm9p51.apps.googleusercontent.com';

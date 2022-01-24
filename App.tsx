@@ -18,21 +18,25 @@ import * as AuthSession from 'expo-auth-session';
 import * as Google from 'expo-auth-session/providers/google';
 import { signInWithCredential } from 'firebase/auth';
 import React, { useContext, useEffect, useState } from 'react';
+import WebBrowser from 'expo-web-browser'
 
-import { clientIds, SCHEME } from './app/config';
+import { authOptions, clientIds, SCHEME } from './app/config';
+
+if (Platform.OS === 'web') {
+	WebBrowser.maybeCompleteAuthSession();
+}
 
 const LoginPage = ({ onLogin }: any) => {
 	const auth = getAuth();
-	const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = Google.useIdTokenAuthRequest(clientIds, {
-		scheme: SCHEME,
-		path: 'redirect',	
-	});
+	const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = Google.useIdTokenAuthRequest(
+		clientIds,
+		authOptions
+	);
 
 	// const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = Google.useIdTokenAuthRequest(clientIds, {
 	// 	scheme: "https",
-	// 	path: 'expo.firebase-authenticate/redirect',		
+	// 	path: 'expo.firebase-authenticate/redirect',
 	// });
-
 
 	// Doesn't work with Expo GO
 	// const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = Google.useAuthRequest(clientIds);
@@ -66,7 +70,7 @@ const LoginPage = ({ onLogin }: any) => {
 				})
 				.catch((err) => {
 					console.log(`App.tsx: useEffect (responseFromGoogle)  ERROR ERROR ERROR`);
-					alert(JSON.stringify(err));
+					// alert(JSON.stringify(err));
 				});
 		} else {
 			console.log(

@@ -39,7 +39,7 @@
 			},
 			"config": {
 				"googleSignIn": {
-					"certificateHash": "679006B75DD525056E05ACD6AA93045F8F5903FC"
+					"certificateHash": "2c15f63ba5f6396f40ed992a806013f9b4552496"
 				}
 			},
 			"intentFilters": [
