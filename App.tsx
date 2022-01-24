@@ -1,7 +1,5 @@
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
+import { Platform } from 'react-native';
 import { maybeCompleteAuthSession } from 'expo-web-browser'
 
 import { authOptions, clientIds, SCHEME } from './app/config';
