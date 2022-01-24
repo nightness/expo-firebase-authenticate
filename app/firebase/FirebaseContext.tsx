@@ -54,9 +54,11 @@ export const FirebaseProvider = ({ children }: Props) => {
 
 					// results.push(Linking.createURL('oauthredirect'));
 					results.push(Linking.createURL('redirect'));
-					results.push(Linking.createURL('expo.firebase-authenticate/redirect', {
-						scheme: 'https'
-					}));
+					results.push(
+						Linking.createURL('expo.firebase-authenticate/redirect', {
+							scheme: 'https',
+						})
+					);
 					// results.push(Linking.createURL('/redirect'));
 					// results.push(Linking.createURL('expofire://redirect'));
 					// results.push(Linking.createURL('net.openid.appauth.RedirectUriReceiverActivity'));
@@ -85,12 +87,17 @@ export const FirebaseProvider = ({ children }: Props) => {
 			// alert(event.url);
 		};
 
-		Linking.addEventListener('url', urlHandler);
-		console.log(`FirebaseContext.tsx: useEffect ([]) Linking.addEventListener was called before this with urlHandler`);
-		return () => {
-			console.log(`FirebaseContext.tsx: useEffect ([]) Linking.addEventListener REMOVING LISTENER REMOVING LISTENER`);
-			Linking.removeEventListener('url', urlHandler);
-		};
+		// This keeps being called over and over on web after sign-in/sign-out
+		if (Platform.OS !== 'web') {
+			Linking.addEventListener('url', urlHandler);
+			console.log(
+				`FirebaseContext.tsx: useEffect ([]) Linking.addEventListener was called before this with urlHandler`
+			);
+			return () => {
+				console.log(`FirebaseContext.tsx: useEffect ([]) Linking.addEventListener REMOVING LISTENER REMOVING LISTENER`);
+				Linking.removeEventListener('url', urlHandler);
+			};
+		}
 	}, []);
 
 	const logout = (onSuccess: () => void, onError?: (error: Error) => void) => {

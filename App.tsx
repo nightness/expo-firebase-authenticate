@@ -7,7 +7,9 @@ import AppAuth1 from './AppAuth1';
 import AppAuth2 from './AppAuth2';
 
 if (Platform.OS === 'web') {
-	maybeCompleteAuthSession();
+	maybeCompleteAuthSession({
+		skipRedirectCheck: true
+	});
 }
 
 export default function App() {
