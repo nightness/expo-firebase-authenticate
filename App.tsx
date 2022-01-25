@@ -144,7 +144,7 @@ const LogoutPage = ({ onLogout }: any) => {
 /// App Component
 ///
 export default function App() {
-	const [loggedIn, setLoggedIn] = useState(false);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 	console.log(`App.tsx: App(): Rendering App.tsx`);
 
@@ -157,12 +157,13 @@ export default function App() {
 	// 	);
 	// }, []);
 
-	// I chopped too much and broke web, only testing native builds (not web)
-	if (Platform.OS === 'web') return <View />;
+	// This code is not for web
+	if (Platform.OS === 'web') return <View><Text>This project is for managed Expo Go and standalone native builds</Text></View>;
 
+	// Render app, LoginPage if 
 	return (
 		<View style={styles.container}>
-			{!loggedIn ? <LoginPage onLogin={() => setLoggedIn(true)} /> : <LogoutPage onLogout={() => setLoggedIn(false)} />}
+			{!isLoggedIn ? <LoginPage onLogin={() => setIsLoggedIn(true)} /> : <LogoutPage onLogout={() => setIsLoggedIn(false)} />}
 		</View>
 	);
 }
