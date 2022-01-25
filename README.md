@@ -10,6 +10,8 @@ Useful Documentation
 
     https://javascript.plainenglish.io/easy-deep-linking-with-react-native-and-expo-84e3c7b9d63e
 
+    https://console.cloud.google.com/apis/credentials?pli=1&project=expo-firebase-authenticate
+
     HMMM??? https://github.com/expo/expo/issues/11714
     
 Setup Web
