@@ -109,12 +109,12 @@ const LogoutPage = ({ onLogout }: any) => {
 				try {
 					onSuccess?.();
 				} catch (err) {
-					console.log(`Logout: ERROR in setGuest() >>>>>>> ${JSON.stringify(err)}`);
+					console.log(`Logout: ERROR (from callback) ${JSON.stringify(err)}`);
 					onError && onError(err as any);
 				}
 			})
 			.catch((err) => {
-				console.error([`Logout: ERROR LOGGING OUT>>>>>`, err]);
+				console.error([`Logout: ERROR  (before callback)`, err]);
 				onError && onError(err);
 			});
 	};
