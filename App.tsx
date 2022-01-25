@@ -177,6 +177,10 @@ export default function App() {
 		};
 	}, []);
 
+	useEffect(() => {
+		console.log(`InitialURL: ${initialURL}`)
+	}, [initialURL]);
+
 	// This code is not for web
 	if (Platform.OS === 'web')
 		return (
