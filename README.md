@@ -67,9 +67,14 @@ Setup Checklist
 Building
 ===
 
-expo build:android didn't work for me, do this instead...
+'expo build:android' didn't work for me, do this instead...
 
-expo eject
-yarn android
--- or --
-cd android && ./gradlew assembleRelease
+'expo eject'
+
+Then...
+
+'yarn android'
+
+-- or for an APK --
+
+'cd android && ./gradlew assembleRelease'
