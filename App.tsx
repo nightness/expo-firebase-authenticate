@@ -3,7 +3,6 @@
 	Support intended only for Android and iOS
 
 	Read the README.md and all the links in it!!!
-
 */
 import React, { useEffect, useState } from 'react';
 import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
