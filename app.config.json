@@ -52,17 +52,6 @@
 						}
 					],
 					"category": ["BROWSABLE", "DEFAULT"]
-				},
-				{
-					"action": "VIEW",
-					"data": [
-						{
-							"scheme": "https",
-							"host": "expo-firebase-authenticate.web.app",
-							"pathPrefix": "/redirect"
-						}
-					],
-					"category": ["BROWSABLE", "DEFAULT"]
 				}
 			]
 		},

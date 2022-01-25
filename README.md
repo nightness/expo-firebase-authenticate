@@ -45,3 +45,21 @@ Setup Checklist
 
 4. Add an Android app to your Firebase project
 5. Update the config.ts file in this project with that information
+
+6. Added to app.config.json
+
+    ```
+    "android": {
+        "intentFilters": [
+            {
+                "action": "VIEW",
+                "data": [
+                    {
+                        "scheme": "app",
+                        "host": "com.nightness.expofire"
+                    }
+                ],
+                "category": ["BROWSABLE", "DEFAULT"]
+            }
+        ]
+        ...
