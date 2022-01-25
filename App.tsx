@@ -171,22 +171,6 @@ export default function App() {
 			// alert(event.url);
 		};
 
-		// sendIntent for Android
-		// if (Platform.OS === 'android') {
-		// 	Linking.sendIntent('ACTION_VIEW', [
-		// 		{
-		// 			key: 'url',
-		// 			value: 'com.nightness.expofire:/oauthredirect',
-		// 		},
-		// 	]);
-		// 	Linking.sendIntent('ACTION_VIEW', [
-		// 		{
-		// 			key: 'url',
-		// 			value: 'com.nightness.expofire/net.openid.appauth.AuthorizationManagementActivity',
-		// 		},
-		// 	]);
-		// }
-
 		Linking.addEventListener('url', urlHandler);
 		return () => {
 			Linking.removeEventListener('url', urlHandler);
