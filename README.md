@@ -1,26 +1,30 @@
-Web works, Expo Go works; native builds need work.
+Expo Go works... Standalone native builds are not handling the deep link from redirect url.
 
 Useful Documentation
 ===
+    This is the official expo authentication package
     https://docs.expo.dev/versions/latest/sdk/auth-session/
+
+    This is a setup guide for various authentication methods
     https://docs.expo.dev/guides/authentication/
+
+    Firebase Docs
     https://firebase.google.com/docs/android/setup
-    https://docs.expo.dev/guides/linking/
     https://firebase.google.com/docs/auth/android/start
 
+    Linking
+    https://docs.expo.dev/guides/linking/
     https://javascript.plainenglish.io/easy-deep-linking-with-react-native-and-expo-84e3c7b9d63e
 
+    Google Cloud Credentials
     https://console.cloud.google.com/apis/credentials?pli=1&project=expo-firebase-authenticate
 
-    HMMM??? https://github.com/expo/expo/issues/11714
+    HMMM???
+    https://github.com/expo/expo/issues/11714
     
-Setup Web
+Setup Checklist
 ===
-    Only requires a valid firebase config
-
-Setup Native
-===
-1. Add to app.json (or app.config.json)
+1. Add scheme to app.json (or app.config.json)
     ```
     {
         "expo": {
@@ -35,8 +39,5 @@ Setup Native
 		"googleServicesFile": "./google-services.json",
         ...
 
-
-Hosted Web Site
-
-    https://expo-firebase-authenticate.web.app
-
+4. Add an Android app to your Firebase project
+5. Update the config.ts file in this project with that information
