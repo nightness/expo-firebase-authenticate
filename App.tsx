@@ -14,8 +14,8 @@ import Constants from 'expo-constants';
 
 const { RNGoogleSignin } = NativeModules;
 
-console.log(NativeModules)
-console.log(RNGoogleSignin)
+console.log(NativeModules);
+console.log(RNGoogleSignin);
 
 // If you want to setup your own firebase test project, all config is in here, otherwise you can use mine
 import { authOptions, clientIds, firebaseConfig, SCHEME } from './config';
@@ -155,32 +155,43 @@ const LogoutPage = ({ onLogout }: any) => {
 export default function App() {
 	// Is used to specify which main component to render
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [initialURL, setInitialURL] = useState<string | null>(null);
 
 	// UrlHandler
 	useEffect(() => {
 		if (Platform.OS === 'web') return;
+
+		Linking.getInitialURL().then((url) => {
+			setInitialURL(url);
+			console.log('getInitialURL: url is', url);
+		});
+
 		const urlHandler: Linking.URLListener = (event) => {
 			console.log(`urlHandler: ${JSON.stringify(event)}`);
 			// alert(event.url);
 		};
 
 		// sendIntent for Android
-		if (Platform.OS === 'android') {
-			Linking.sendIntent('ACTION_VIEW', [{
-				key: 'url',
-				value: 'com.nightness.expofire:/oauthredirect'
-			}]);
-			Linking.sendIntent('ACTION_VIEW', [{
-				key: 'url',
-				value: 'com.nightness.expofire/net.openid.appauth.AuthorizationManagementActivity'
-			}]);					
-		}
-		
+		// if (Platform.OS === 'android') {
+		// 	Linking.sendIntent('ACTION_VIEW', [
+		// 		{
+		// 			key: 'url',
+		// 			value: 'com.nightness.expofire:/oauthredirect',
+		// 		},
+		// 	]);
+		// 	Linking.sendIntent('ACTION_VIEW', [
+		// 		{
+		// 			key: 'url',
+		// 			value: 'com.nightness.expofire/net.openid.appauth.AuthorizationManagementActivity',
+		// 		},
+		// 	]);
+		// }
+
 		Linking.addEventListener('url', urlHandler);
 		return () => {
 			Linking.removeEventListener('url', urlHandler);
 		};
-	}, [])
+	}, []);
 
 	// useEffect(() => {
 	// 	console.log(
