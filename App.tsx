@@ -2,7 +2,7 @@
 	This app consists of two screens, each with one button (either 'Login to Google' or 'Logout')
 	Support intended only for Android and iOS
 
-	Read the README.md!!!
+	Read the README.md and all the links in it!!!
 
 */
 import React, { useEffect, useState } from 'react';
