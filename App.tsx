@@ -54,11 +54,7 @@ const LoginPage = ({ onLogin }: any) => {
 			const credential = GoogleAuthProvider.credential(id_token);
 			signInWithCredential(auth, credential)
 				.then((value) => {
-					console.log(
-						`LoginPage: useEffect (responseFromGoogle)  signInWithCredential(auth, credential) ${JSON.stringify(
-							value
-						)} going to onLogin with ${JSON.stringify(value.user)}`
-					);
+					console.log(`LoginPage: Successful Login ${JSON.stringify(value)}`);
 					onLogin(value.user);
 				})
 				.catch((err) => {
@@ -77,7 +73,7 @@ const LoginPage = ({ onLogin }: any) => {
 	// Invoke the onLogin callback after firebase has a user
 	useEffect(() => {
 		if (auth.currentUser) {
-			console.log(`App.tsx: useEffect (auth) Logged-In ${auth.currentUser}`);
+			console.log(`LoginPage: useEffect (auth) Logged-In ${auth.currentUser}`);
 			onLogin(auth.currentUser);
 		}
 	}, [auth]);
