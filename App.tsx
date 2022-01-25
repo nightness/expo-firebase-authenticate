@@ -158,12 +158,21 @@ export default function App() {
 	// }, []);
 
 	// This code is not for web
-	if (Platform.OS === 'web') return <View><Text>This project is for managed Expo Go and standalone native builds</Text></View>;
+	if (Platform.OS === 'web')
+		return (
+			<View>
+				<Text>This project is for managed Expo Go and standalone native builds</Text>
+			</View>
+		);
 
-	// Render app, LoginPage if 
+	// Render app, LoginPage if
 	return (
 		<View style={styles.container}>
-			{!isLoggedIn ? <LoginPage onLogin={() => setIsLoggedIn(true)} /> : <LogoutPage onLogout={() => setIsLoggedIn(false)} />}
+			{!isLoggedIn ? (
+				<LoginPage onLogin={() => setIsLoggedIn(true)} />
+			) : (
+				<LogoutPage onLogout={() => setIsLoggedIn(false)} />
+			)}
 		</View>
 	);
 }
