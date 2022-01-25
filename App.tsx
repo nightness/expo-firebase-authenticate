@@ -9,6 +9,7 @@ import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native
 import { FirebaseApp, getApp, getApps, initializeApp, FirebaseError } from 'firebase/app';
 import { useAuthRequest, useIdTokenAuthRequest } from 'expo-auth-session/providers/google';
 import { getAuth, GoogleAuthProvider, signInWithCredential, signInWithRedirect, signOut } from 'firebase/auth';
+import * as Linking from 'expo-linking';
 import Constants from 'expo-constants';
 
 // If you want to setup your own firebase test project, all config is in here, otherwise you can use mine
@@ -149,6 +150,27 @@ const LogoutPage = ({ onLogout }: any) => {
 export default function App() {
 	// Is used to specify which main component to render
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+	// UrlHandler
+	useEffect(() => {
+		if (Platform.OS === 'web') return;
+		const urlHandler: Linking.URLListener = (event) => {
+			console.log(`urlHandler: ${JSON.stringify(event)}`);
+			// alert(event.url);
+		};
+
+		if (Platform.OS === 'android') {
+			Linking.sendIntent('ACTION_VIEW', [{
+				key: 'url',
+				value: 'com.nightness.expofire:/oauthredirect'
+			}])
+		}
+		
+		Linking.addEventListener('url', urlHandler);
+		return () => {
+			Linking.removeEventListener('url', urlHandler);
+		};
+	}, [])
 
 	// useEffect(() => {
 	// 	console.log(
