@@ -105,16 +105,16 @@ const LogoutPage = ({ onLogout }: any) => {
 
 		signOut(localAuth)
 			.then(() => {
-				console.log(`Logout: SignOut results`);
+				console.log(`logout(): SignOut results`);
 				try {
 					onSuccess?.();
 				} catch (err) {
-					console.log(`Logout: ERROR (from callback) ${JSON.stringify(err)}`);
+					console.log(`logout(): ERROR (from callback) ${JSON.stringify(err)}`);
 					onError && onError(err as any);
 				}
 			})
 			.catch((err) => {
-				console.error([`Logout: ERROR  (before callback)`, err]);
+				console.error([`logout(): ERROR  (before callback)`, err]);
 				onError && onError(err);
 			});
 	};
@@ -144,9 +144,8 @@ const LogoutPage = ({ onLogout }: any) => {
 /// App Component
 ///
 export default function App() {
+	// Is used to specify which main component to render
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-	console.log(`App.tsx: App(): Rendering App.tsx`);
 
 	// useEffect(() => {
 	// 	console.log(
