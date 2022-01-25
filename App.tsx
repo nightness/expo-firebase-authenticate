@@ -1,12 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { maybeCompleteAuthSession } from 'expo-web-browser';
 import { FirebaseApp, getApp, getApps, initializeApp } from 'firebase/app';
-
-import { StatusBar } from 'expo-status-bar';
-import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
-import * as AuthSession from 'expo-auth-session';
-import * as Google from 'expo-auth-session/providers/google';
+import { useAuthRequest, useIdTokenAuthRequest } from 'expo-auth-session/providers/google';
 import { getAuth, GoogleAuthProvider, signInWithCredential, signInWithRedirect, signOut } from 'firebase/auth';
 
 import { FirebaseError } from 'firebase/app';
@@ -27,10 +23,12 @@ if (getApps().length === 0) {
 
 const LoginPage = ({ onLogin }: any) => {
 	const auth = getAuth();
-	const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = Google.useIdTokenAuthRequest(
-		clientIds,
-		authOptions
-	);
+	// const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = useIdTokenAuthRequest(
+	// 	clientIds,
+	// 	authOptions
+	// );
+
+	const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = useAuthRequest(clientIds, authOptions);
 
 	// const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = Google.useIdTokenAuthRequest(clientIds, {
 	// 	scheme: "https",
@@ -95,9 +93,13 @@ const LoginPage = ({ onLogin }: any) => {
 		if (Platform.OS === 'web') {
 			console.log(`App.tsx: signInWithGoogle(): Platform Web`);
 			const provider = new GoogleAuthProvider();
-			signInWithRedirect(getAuth(), provider).catch((error: FirebaseError) => {
-				console.error(error);
-			});
+			signInWithRedirect(getAuth(), provider)
+				.then(() => {
+					onLogin(auth.currentUser);
+				})
+				.catch((error: FirebaseError) => {
+					console.error(error);
+				});
 		} else if (Platform.OS === 'android' || Platform.OS === 'ios') {
 			console.log(`App.tsx: signInWithGoogle(): Platform NOT Web`);
 			promptGoogleAuthAsync();
@@ -169,6 +171,11 @@ export default function App() {
 	// 		})
 	// 	);
 	// }, []);
+
+	// I chopped too much and broke web, only testing native builds (not web)
+	if (Platform.OS === 'web')
+		return <View />
+
 
 	return (
 		<View style={styles.container}>
