@@ -5,12 +5,17 @@
 	Read the README.md and all the links in it!!!
 */
 import React, { useEffect, useState } from 'react';
-import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { NativeModules, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { FirebaseApp, getApp, getApps, initializeApp, FirebaseError } from 'firebase/app';
 import { useAuthRequest, useIdTokenAuthRequest } from 'expo-auth-session/providers/google';
 import { getAuth, GoogleAuthProvider, signInWithCredential, signInWithRedirect, signOut } from 'firebase/auth';
 import * as Linking from 'expo-linking';
 import Constants from 'expo-constants';
+
+const { RNGoogleSignin } = NativeModules;
+
+console.log(NativeModules)
+console.log(RNGoogleSignin)
 
 // If you want to setup your own firebase test project, all config is in here, otherwise you can use mine
 import { authOptions, clientIds, firebaseConfig, SCHEME } from './config';
@@ -159,11 +164,16 @@ export default function App() {
 			// alert(event.url);
 		};
 
+		// sendIntent for Android
 		if (Platform.OS === 'android') {
 			Linking.sendIntent('ACTION_VIEW', [{
 				key: 'url',
 				value: 'com.nightness.expofire:/oauthredirect'
-			}])
+			}]);
+			Linking.sendIntent('ACTION_VIEW', [{
+				key: 'url',
+				value: 'com.nightness.expofire/net.openid.appauth.AuthorizationManagementActivity'
+			}]);					
 		}
 		
 		Linking.addEventListener('url', urlHandler);
