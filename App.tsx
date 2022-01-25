@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { maybeCompleteAuthSession } from 'expo-web-browser';
+// import { maybeCompleteAuthSession } from 'expo-web-browser';
 import { FirebaseApp, getApp, getApps, initializeApp } from 'firebase/app';
 import { useAuthRequest, useIdTokenAuthRequest } from 'expo-auth-session/providers/google';
 import { getAuth, GoogleAuthProvider, signInWithCredential, signInWithRedirect, signOut } from 'firebase/auth';
 
+import Constants from 'expo-constants';
+
 import { FirebaseError } from 'firebase/app';
 
+// If you want to setup your own firebase test project, all config is in here
 import { authOptions, clientIds, firebaseConfig, SCHEME } from './config';
 
-maybeCompleteAuthSession({
-	skipRedirectCheck: true,
-});
+// maybeCompleteAuthSession({
+// 	skipRedirectCheck: true,
+// });
 
 // Initialize Firebase
 let firebaseApp: FirebaseApp;
@@ -23,20 +26,15 @@ if (getApps().length === 0) {
 
 const LoginPage = ({ onLogin }: any) => {
 	const auth = getAuth();
-	// const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = useIdTokenAuthRequest(
-	// 	clientIds,
-	// 	authOptions
-	// );
 
-	const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = useAuthRequest(clientIds, authOptions);
-
-	// const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = Google.useIdTokenAuthRequest(clientIds, {
-	// 	scheme: "https",
-	// 	path: 'expo.firebase-authenticate/redirect',
-	// });
-
-	// Doesn't work with Expo GO
-	// const [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = Google.useAuthRequest(clientIds);
+	// Hook trick, as long as the conditional never changes (and it doesn't), this will work.
+	if (Constants.appOwnership === 'expo') {
+		// Works with Expo GO (for managed)
+		var [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = useIdTokenAuthRequest(clientIds, authOptions);
+	} else {
+		// Doesn't work with Expo GO (for standalone)
+		var [requestToGoogle, responseFromGoogle, promptGoogleAuthAsync] = useAuthRequest(clientIds, authOptions);
+	}
 
 	// Logging, this is the request we send to google
 	useEffect(() => {
@@ -117,7 +115,7 @@ const LoginPage = ({ onLogin }: any) => {
 
 const LogoutPage = ({ onLogout }: any) => {
 	const auth = getAuth();
-	
+
 	const logout = (onSuccess: () => any, onError?: (error: any) => any) => {
 		let localAuth = getAuth();
 
@@ -136,7 +134,7 @@ const LogoutPage = ({ onLogout }: any) => {
 				console.error([`FirebaseContext: ERROR LOGGING OUT>>>>>`, err]);
 				onError && onError(err);
 			});
-	}
+	};
 
 	useEffect(() => {
 		if (!auth.currentUser) {
@@ -173,17 +171,11 @@ export default function App() {
 	// }, []);
 
 	// I chopped too much and broke web, only testing native builds (not web)
-	if (Platform.OS === 'web')
-		return <View />
-
+	if (Platform.OS === 'web') return <View />;
 
 	return (
 		<View style={styles.container}>
-			{!loggedIn ? (
-				<LoginPage onLogin={() => setLoggedIn(true)} />
-			) : (
-				<LogoutPage onLogout={() => setLoggedIn(false)} />
-			)}
+			{!loggedIn ? <LoginPage onLogin={() => setLoggedIn(true)} /> : <LogoutPage onLogout={() => setLoggedIn(false)} />}
 		</View>
 	);
 }
