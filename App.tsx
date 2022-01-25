@@ -12,7 +12,7 @@ import { useAuthRequest, useIdTokenAuthRequest } from 'expo-auth-session/provide
 import { getAuth, GoogleAuthProvider, signInWithCredential, signInWithRedirect, signOut } from 'firebase/auth';
 import Constants from 'expo-constants';
 
-// If you want to setup your own firebase test project, all config is in here
+// If you want to setup your own firebase test project, all config is in here, otherwise you can use mine
 import { authOptions, clientIds, firebaseConfig, SCHEME } from './config';
 
 // The styles for components
