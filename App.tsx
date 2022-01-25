@@ -177,15 +177,6 @@ export default function App() {
 		};
 	}, []);
 
-	// useEffect(() => {
-	// 	console.log(
-	// 		'App: makeRedirectUri... I wonder if this is needed or taken care of for us by expo',
-	// 		AuthSession.makeRedirectUri({
-	// 			path: 'redirect',
-	// 		})
-	// 	);
-	// }, []);
-
 	// This code is not for web
 	if (Platform.OS === 'web')
 		return (
