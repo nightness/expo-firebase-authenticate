@@ -149,7 +149,7 @@ export default function App() {
 
 	// useEffect(() => {
 	// 	console.log(
-	// 		'MAKE URI:::::::::',
+	// 		'App: MAKE URI... I wonder if this is needed or taken care of for us by expo',
 	// 		AuthSession.makeRedirectUri({
 	// 			path: 'redirect',
 	// 		})
