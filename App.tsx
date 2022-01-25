@@ -50,7 +50,7 @@ const LoginPage = ({ onLogin }: any) => {
 	useEffect(() => {
 		// Successful response
 		if (responseFromGoogle?.type === 'success') {
-			console.log(`LoginPage: useEffect (responseFromGoogle): ${JSON.stringify(responseFromGoogle)}`);
+			console.log(`LoginPage: useEffect [responseFromGoogle]: ${JSON.stringify(responseFromGoogle)}`);
 
 			const { id_token } = responseFromGoogle.params;
 			const auth = getAuth();
@@ -61,7 +61,7 @@ const LoginPage = ({ onLogin }: any) => {
 					onLogin(value.user);
 				})
 				.catch((err) => {
-					console.log(`LoginPage: useEffect (responseFromGoogle)  ERROR ERROR ERROR`);
+					console.error(`LoginPage: useEffect [responseFromGoogle]`, err);
 				});
 		}
 		// THIS IS THE POINT OF WHERE IT FAILS!!!!!
@@ -76,7 +76,7 @@ const LoginPage = ({ onLogin }: any) => {
 	// Invoke the onLogin callback after firebase has a user
 	useEffect(() => {
 		if (auth.currentUser) {
-			console.log(`LoginPage: useEffect (auth) Logged-In ${auth.currentUser}`);
+			console.log(`LoginPage: useEffect [auth] Logged-In ${auth.currentUser}`);
 			onLogin(auth.currentUser);
 		}
 	}, [auth]);
