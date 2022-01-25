@@ -21,6 +21,10 @@ Useful Documentation
 
     HMMM???
     https://github.com/expo/expo/issues/11714
+
+    Android Doc on Deep Linking
+    https://developer.android.com/training/app-links/deep-linking
+
     
 Setup Checklist
 ===
