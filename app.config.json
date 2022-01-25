@@ -47,7 +47,8 @@
 					"action": "VIEW",
 					"data": [
 						{
-							"scheme": "expofire"
+							"scheme": "app",
+							"host": "com.nightness.expofire"
 						}
 					],
 					"category": ["BROWSABLE", "DEFAULT"]
