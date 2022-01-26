@@ -1,4 +1,4 @@
-Expo Go works... Standalone native builds are not handling the deep link from redirect url.
+It finally all works!!! :)
 
 Useful Documentation
 ===
